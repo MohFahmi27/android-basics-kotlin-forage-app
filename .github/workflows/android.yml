@@ -28,7 +28,18 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       
-    - name: build release 
-      run: ./gradlew assembleRelease
-    - name: list files
-      run: ls -lrt app/build/outputs/apk/release
+     # Create APK Debug
+    - name: Build apk debug project (APK)
+      run: ./gradlew assembleDebug
+
+    # Create APK Release
+    - name: Build apk release project (APK)
+      run: ./gradlew assemble
+
+    # Upload Artifact Build
+    # Noted For Output [module-name]/build/outputs/
+    - name: Upload debug build APK
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        name: App bundle(s) and APK(s) generated
+        path: app/build/outputs/
